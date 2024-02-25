@@ -1,55 +1,48 @@
-// eslint-disable-next-line react/prop-types
+import { useState } from "react";
+
 export default function ProductFilter({ products, setState }) {
+  const [activeButton, setActiveButton] = useState(null);
+
   const handleClick = (type) => {
-    // eslint-disable-next-line react/prop-types
     const { product } = products.find((item) => item.type === type);
     setState(product);
+    setActiveButton(type);
   };
+
   return (
     <>
       <button
-        className="border border-blue-300 rounded px-3 py-2 my-2 mx-1"
-        // eslint-disable-next-line react/prop-types
-        onClick={() => setState(products.flatMap(({ product }) => product))}
+        className={`border rounded px-3 py-2 my-3 mx-[0.5rem] ms-0 text-[0.8rem] md:text-[1.14rem] ${
+          activeButton === null &&
+          "text-blue-800 border-blue-800 font-bold border-2"
+        } ${activeButton === null ? "active" : ""}`}
+        onClick={() => {
+          setState(products.flatMap(({ product }) => product));
+          setActiveButton(null);
+        }}
       >
         All Product
       </button>
-      <button
-        className="border border-blue-300 rounded px-3 py-2 my-2 mx-1"
-        onClick={() => handleClick("lifeStyle")}
-      >
-        Life Style
-      </button>
-      <button
-        className="border border-blue-300 rounded px-3 py-2 my-2 mx-1"
-        onClick={() => handleClick("electronics")}
-      >
-        Electronics
-      </button>
-      <button
-        className="border border-blue-300 rounded px-3 py-2 my-2 mx-1"
-        onClick={() => handleClick("menFashion")}
-      >
-        Men Fashion
-      </button>
-      <button
-        className="border border-blue-300 rounded px-3 py-2 my-2 mx-1"
-        onClick={() => handleClick("womenFashions")}
-      >
-        Women Fashion
-      </button>
-      <button
-        className="border border-blue-300 rounded px-3 py-2 my-2 mx-1"
-        onClick={() => handleClick("accessories")}
-      >
-        Accessories
-      </button>
-      <button
-        className="border border-blue-300 rounded px-3 py-2 my-2 mx-1"
-        onClick={() => handleClick("homeDecor")}
-      >
-        Home Decor
-      </button>
+      {[
+        "lifeStyle",
+        "electronics",
+        "menFashion",
+        "womenFashions",
+        "accessories",
+        "homeDecor",
+        "⋮",
+      ].map((type) => (
+        <button
+          key={type}
+          className={`border rounded px-3 py-2 my-3 mx-1 text-[0.8rem] md:text-[1.14rem] ${
+            activeButton === type &&
+            "text-blue-800 border-blue-800 font-bold border-2"
+          } ${activeButton === type ? "active" : ""}`}
+          onClick={() => handleClick(type)}
+        >
+          {type.charAt(0).toUpperCase() + type.slice(1)}
+        </button>
+      ))}
     </>
   );
 }
