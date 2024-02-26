@@ -12,7 +12,7 @@ export default function ProductFilter({ products, setState }) {
   return (
     <>
       <button
-        className={`border rounded px-3 py-2 my-3 mx-[0.5rem] ms-0 text-[0.8rem] md:text-[1.14rem] ${
+        className={`border rounded px-3 py-2 my-3 mx-[0.5rem] ms-0 text-[0.8rem] md:text-[1.01rem] ${
           activeButton === null &&
           "text-blue-800 border-blue-800 font-bold border-2"
         } ${activeButton === null ? "active" : ""}`}
@@ -34,7 +34,7 @@ export default function ProductFilter({ products, setState }) {
       ].map((type) => (
         <button
           key={type}
-          className={`border rounded px-3 py-2 my-3 mx-1 text-[0.8rem] md:text-[1.14rem] ${
+          className={`border rounded px-3 py-2 my-3 mx-1 text-[0.8rem] md:text-[01.01rem] ${
             activeButton === type &&
             "text-blue-800 border-blue-800 font-bold border-2"
           } ${activeButton === type ? "active" : ""}`}

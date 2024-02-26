@@ -10,10 +10,10 @@ export default function Card({ item, handelAddCartList }) {
         className="flex flex-col items-center justify-center bg-white border rounded p-3"
       >
         <LazyLoadImage
+          className="w-auto"
           alt="avatar"
           effect="blur"
           src="/images/noImage.png"
-          width={180}
         />
 
         {/* eslint-disable-next-line react/prop-types */}

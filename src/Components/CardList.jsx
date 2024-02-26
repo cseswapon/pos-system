@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaEdit, FaPlus } from "react-icons/fa";
 import { TiMinus } from "react-icons/ti";
 import { HiCurrencyDollar } from "react-icons/hi";
 
-// eslint-disable-next-line react/prop-types
 export default function CardList({
   item,
   handelCartDelete,
@@ -12,6 +11,7 @@ export default function CardList({
   setFilterArray,
 }) {
   const [total, setTotal] = useState(1);
+
   const handleTotalChange = (newValue, id) => {
     const updatedFilterArray = filterArray.map((item) => {
       if (item.id === id) {
@@ -21,44 +21,61 @@ export default function CardList({
     });
 
     setFilterArray(updatedFilterArray);
-
     setTotal(newValue);
   };
+
   return (
-    <>
-      <div className="flex items-center justify-between px-32 my-2">
-        {/* eslint-disable-next-line react/prop-types */}
-        <p>
-          <FaEdit className="inline-block me-2" />
-          {item.name}
-        </p>
-        {/* eslint-disable-next-line react/prop-types */}
-        <p>${item.price}</p>
-        <div className="flex items-center">
-          <button
-            disabled={total === 1}
-            onClick={() => handleTotalChange(total - 1, item.id)}
-          >
-            <TiMinus />
-          </button>
-          <span>{total}</span>
-          <button onClick={() => handleTotalChange(total + 1, item.id)}>
-            <FaPlus />
-          </button>
-        </div>
-        {/* eslint-disable-next-line react/prop-types */}
-        <p>
-          <HiCurrencyDollar className="inline-block text-[1.3rem] me-2" />
-          {Number(item.price) * total || Number(item.price)}
-        </p>
+    <div className="grid grid-cols-8 p-2">
+      <div className="col-span-1 flex items-center justify-center text-slate-500">
+        <FaEdit className="text-[2rem]" />
+      </div>
+      <div className="col-span-6">
+        <Fragment>
+          <div className="grid grid-cols-4 gap-4 border p-3 text-slate-500">
+            <div className="col-span-1">{item.name}</div>
+            <div className="col-span-1 flex items-center justify-center">
+              ${item.price}
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <button
+                disabled={total === 1}
+                onClick={() => handleTotalChange(total - 1, item.id)}
+                className={`text-white bg-gray-300 p-1 rounded-full ${
+                  total === 1
+                    ? "cursor-not-allowed"
+                    : "hover:text-black hover:cursor-pointer"
+                }`}
+              >
+                <TiMinus />
+              </button>
+              <span className="mx-2">{total}</span>
+              <button
+                onClick={() => handleTotalChange(total + 1, item.id)}
+                className={`text-white bg-gray-300 p-1 rounded-full 
+                    ? "cursor-not-allowed"
+                    : "hover:text-black hover:cursor-pointer"
+                }`}
+              >
+                <FaPlus />
+              </button>
+            </div>
+            <div className="col-span-1 flex items-center justify-center">
+              <p className="flex items-center">
+                <HiCurrencyDollar className="inline-block text-[1.3rem] mr-1" />
+                {Number(item.price) * total || Number(item.price)}
+              </p>
+            </div>
+          </div>
+        </Fragment>
+      </div>
+      <div className="col-span-1 flex items-center justify-center">
         <button
-          // eslint-disable-next-line react/prop-types
           onClick={() => handelCartDelete(item.id)}
-          className="text-red-500"
+          className="text-red-500 hover:text-red-700"
         >
-          <AiOutlineDelete className="text-[1.3rem]" />
+          <AiOutlineDelete className="text-[2rem]" />
         </button>
       </div>
-    </>
+    </div>
   );
 }
