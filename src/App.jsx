@@ -64,12 +64,10 @@ function App() {
   useEffect(() => {
     let subTotal = 0;
 
-    // Calculate subtotal
     for (const item of filterArray) {
       subTotal += Number(item.price) * item.quantity;
     }
-
-    // Calculate total
+    
     const tax = subTotal * amount.tax;
     const total = subTotal + tax + amount.shipping;
 
